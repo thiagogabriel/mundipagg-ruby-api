@@ -3,6 +3,7 @@ require_relative 'ServiceContracts/CreateOrderRequest.rb'
 require_relative 'ServiceContracts/BoletoTransaction.rb'
 require_relative 'ServiceContracts/CreditCardTransaction.rb'
 require_relative 'ServiceContracts/Buyer.rb'
+require_relative 'ServiceContracts/QueryOrderRequest.rb'
 
 class MundiPaggClient
 
@@ -10,31 +11,30 @@ class MundiPaggClient
 
   end
 
-  def QueryOrder()
+  def QueryOrder(request)
 
     parser = Nori.new(:convert_tags_to => lambda { |tag| tag })
 
-    hash = "<tns:queryOrderRequest>
-		            <mun:MerchantKey>?</mun:MerchantKey>
-		            <mun:OrderKey>?</mun:OrderKey>
-		            <mun:OrderReference>?</mun:OrderReference>
-		            <mun:RequestKey>?</mun:RequestKey>
-		         </tns:queryOrderRequest>"
+    hash = parser.parse("<tns:queryOrderRequest>
+				<mun:MerchantKey>?</mun:MerchantKey>
+				<mun:OrderKey>?</mun:OrderKey>
+				<mun:OrderReference>?</mun:OrderReference>
+				<mun:RequestKey>?</mun:RequestKey>
+			</tns:queryOrderRequest>")
 
-    xml_hash = hash['tns:createOrderRequest'];
+    xml_hash = hash['tns:queryOrderRequest'];
 
     xml_hash['mun:MerchantKey'] = request.merchantKey
     xml_hash['mun:OrderKey'] = request.orderKey
     xml_hash['mun:OrderReference'] = request.orderReference
     xml_hash['mun:RequestKey'] = request.requestKey
 
-
-    response = SendToService(hash)
+    response = SendToService(hash, :query_order)
 
     return response
   end
 
-  def SendOrder(request)
+  def CreateOrder(request)
 
     parser = Nori.new(:convert_tags_to => lambda { |tag| tag })
     hash = parser.parse('
@@ -44,6 +44,7 @@ class MundiPaggClient
 		            <mun:CurrencyIsoEnum>?</mun:CurrencyIsoEnum>		            
 		            <mun:MerchantKey>?</mun:MerchantKey>		            
 		            <mun:OrderReference>?</mun:OrderReference>
+		            <mun:RequestKey>?</mun:RequestKey>
 					<mun:Buyer>
 				    </mun:Buyer>
 		            <mun:CreditCardTransactionCollection>
@@ -59,6 +60,7 @@ class MundiPaggClient
     xml_hash['mun:CurrencyIsoEnum'] = request.currencyIsoEnum
     xml_hash['mun:MerchantKey'] = request.merchantKey
     xml_hash['mun:OrderReference'] = request.orderReference
+    xml_hash['mun:RequestKey'] = request.requestKey
 
     if request.buyer.nil? == false
       xml_hash['mun:Buyer'] = CreateBuyer(request)
@@ -76,7 +78,7 @@ class MundiPaggClient
       xml_hash['mun:BoletoTransactionCollection'] = boletoTransactionCollection
     end
 
-    response = SendToService(hash)
+    response = SendToService(hash, :create_order)
 
 
     return response
@@ -176,17 +178,17 @@ class MundiPaggClient
     return transactionCollection
   end
 
-  def SendToService(hash)
+  def SendToService(hash, service_method)
 
     client = Savon.client do
       wsdl "https://transaction.mundipaggone.com/MundiPaggService.svc?wsdl"
       namespaces "xmlns:mun" => "http://schemas.datacontract.org/2004/07/MundiPagg.One.Service.DataContracts"
     end
 
-    response = client.call(:create_order, message: hash)
+    response = client.call(service_method, message: hash)
 
     return response.to_hash
   end
 
-  private :CreateBoletoTransactionRequest, :CreateCreditCardTransaction, :CreateBuyer
+  private :CreateBoletoTransactionRequest, :CreateCreditCardTransaction, :CreateBuyer, :SendToService
 end

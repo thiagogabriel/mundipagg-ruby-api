@@ -1,6 +1,7 @@
 class CreateOrderRequest
-	attr_accessor :amountInCents, :amountInCentsToConsiderPaid, :currencyIsoEnum, :buyer,
-					:merchantKey, :orderReference, :creditCardTransactionCollection, :boletoTransactionCollection 
+	attr_accessor :amountInCents, :amountInCentsToConsiderPaid, :currencyIsoEnum, :buyer, 
+					:merchantKey, :orderReference, :creditCardTransactionCollection, 
+					:boletoTransactionCollection, :requestKey
 
 
 	@@CurrencyISO ={
@@ -12,6 +13,8 @@ class CreateOrderRequest
 		@creditCardTransactionCollection = [];
 		@boletoTransactionCollection = [];
 		@currencyIsoEnum = CreateOrderRequest.CurrencyIsoEnum[:BrazillianReal]
+		@requestKey = '00000000-0000-0000-0000-000000000000'
+
 	end
 
 	def self.CurrencyIsoEnum
