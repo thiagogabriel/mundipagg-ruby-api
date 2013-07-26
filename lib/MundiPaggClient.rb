@@ -224,7 +224,7 @@ class MundiPaggClient
   def SendToService(hash, service_method)
 
     client = Savon.client do
-      wsdl "https://transaction.mundipaggone.com/MundiPaggService.svc?wsdl"
+      wsdl "http://simulator.mundipaggone.com/One/MundiPaggService.svc?wsdl"
       namespaces "xmlns:mun" => "http://schemas.datacontract.org/2004/07/MundiPagg.One.Service.DataContracts"
     end
 
