@@ -4,12 +4,55 @@ require_relative 'ServiceContracts/BoletoTransaction.rb'
 require_relative 'ServiceContracts/CreditCardTransaction.rb'
 require_relative 'ServiceContracts/Buyer.rb'
 require_relative 'ServiceContracts/QueryOrderRequest.rb'
+require_relative 'ServiceContracts/ManagerOrderRequest.rb'
 
 class MundiPaggClient
 
-  def initialize
+	attr_reader :parser
 
+  def initialize
+  	@parser = Nori.new(:convert_tags_to => lambda { |tag| tag })
   end
+
+  def ManagerOrder(request)
+
+	hash = @parser.parse('<tns:manageOrderRequest>
+							<mun:ManageCreditCardTransactionCollection>
+							</mun:ManageCreditCardTransactionCollection>
+							<mun:ManageOrderOperationEnum>?</mun:ManageOrderOperationEnum>
+							<mun:MerchantKey>?</mun:MerchantKey>
+							<mun:OrderKey>?</mun:OrderKey>
+							<mun:OrderReference>?</mun:OrderReference>
+							<mun:RequestKey>?</mun:RequestKey>
+						</tns:manageOrderRequest>')
+
+	xml_hash = hash['tns:manageOrderRequest'];
+
+	xml_hash['mun:ManageCreditCardTransactionCollection'] = {'mun:ManageCreditCardTransactionRequest'=>Array.new}
+
+	if request.transactionCollection.nil? == false and request.transactionCollection.count > 0
+		
+		request.transactionCollection.each do |transaction|
+			
+			xml_hash['mun:ManageCreditCardTransactionCollection']['mun:ManageCreditCardTransactionRequest'] << {
+				'mun:AmountInCents' => transaction.amountInCents, 
+				'mun:TransactionKey' => transaction.transactionKey, 
+				'mun:TransactionReference' => transaction.transactionReference 
+			}
+		end 
+	end
+
+	xml_hash['mun:ManageOrderOperationEnum'] = request.manageOrderOperationEnum
+	xml_hash['mun:MerchantKey'] = request.merchantKey
+	xml_hash['mun:OrderKey'] = request.orderKey
+	xml_hash['mun:OrderReference'] = request.orderReference
+	xml_hash['mun:RequestKey'] = request.requestKey
+
+	response = SendToService(hash, :manage_order)
+
+	return response
+
+	end
 
   def QueryOrder(request)
 
