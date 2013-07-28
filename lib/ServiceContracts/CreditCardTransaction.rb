@@ -1,9 +1,32 @@
 class CreditCardTransaction
-	attr_accessor :amountInCents, :creditCardBrandEnum, :creditCardNumber, :creditCardOperationEnum,
-					:expirationMonth, :expirationYear, :holderName, :installmentCount, :securityCode,
-					:paymentMethodCode, :transactionReference
+	# @return [Long] Transaction amount in cents
+	attr_accessor :amountInCents
+	# @return [String] Card brand. Use the static property <i>BrandEnum</i>.
+	# @see BrandEnum
+	attr_accessor :creditCardBrandEnum 
+	# @return [String] Credit Card Number.
+	attr_accessor :creditCardNumber
+	# @return [String] Type of operation. Use the static property <i>OperationEnum</i>.
+	# @see OperationEnum
+	attr_accessor :creditCardOperationEnum
+	# @return [Integer] Credit card expiration month
+	attr_accessor :expirationMonth 
+	# @return [Integer] Credit card expiration year
+	attr_accessor :expirationYear 
+	# @return [Integer] Name in the credit card
+	attr_accessor :holderName
+	# @return [Integer] Transaction installments count. 
+	attr_accessor :installmentCount 
+	# @return [Integer] Card security code.
+	attr_accessor :securityCode
+	# @return [Integer] Code to select the payment method. Can be <i>Cielo<i>, <i>Redecard<i> and others. 
+	attr_accessor :paymentMethodCode 
+	# @return [String] Custom transaction identifier.
+	attr_accessor :transactionReference
 
-	@@CardBrand = {
+	# Allowed card brands 
+	# @returns [Hash<Symbol, String>] 
+	@@CARD_BRAND = {
 		:Visa => 'Visa',
 		:Mastercard => 'Mastercard',
 		:AmericanExpress => 'Amex',
@@ -14,17 +37,25 @@ class CreditCardTransaction
 		:Discover => 'Discover'
 	}
 
-	@@Operation = {
+	# Types of operation.
+	# @returns [Hash<Symbol, String>] 
+	@@OPERATION = {
 		:AuthOnly => 'AuthOnly',
 		:AuthAndCapture => 'AuthAndCapture',
 		:AuthAndCaptureWithDelay => 'AuthAndCaptureWithDelay'
 	}
 
+	# Allowed card brands 
+	# @returns [Hash<Symbol, String>] 
+	# @see @@CARD_BRAND
 	def self.BrandEnum
-		@@CardBrand
+		@@CARD_BRAND
 	end
 
+	# Allowed operations.
+	# @returns [Hash<Symbol, String>] 
+	# @see @@OPERATION
 	def self.OperationEnum
-		@@Operation
+		@@OPERATION
 	end
 end
