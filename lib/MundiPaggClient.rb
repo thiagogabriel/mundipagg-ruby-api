@@ -4,7 +4,7 @@ require_relative 'ServiceContracts/BoletoTransaction.rb'
 require_relative 'ServiceContracts/CreditCardTransaction.rb'
 require_relative 'ServiceContracts/Buyer.rb'
 require_relative 'ServiceContracts/QueryOrderRequest.rb'
-require_relative 'ServiceContracts/ManagerOrderRequest.rb'
+require_relative 'ServiceContracts/ManageOrderRequest.rb'
 
 
 # Class that handles all webservice calls
@@ -13,6 +13,7 @@ class MundiPaggClient
   # @return [Nori] Nori class who handle the conversion of base XML to a hash collection 
   # @see https://github.com/savonrb/nori
 	attr_reader :parser
+
   # <i>:test</i> = Simulator enviroment, fake transaction approval;
   # <i>:production</i> = Real transaction, needs real credit card.  
   # @return [Symbol] Webservice environment. 
@@ -115,8 +116,8 @@ class MundiPaggClient
 		            <mun:MerchantKey>?</mun:MerchantKey>		            
 		            <mun:OrderReference>?</mun:OrderReference>
 		            <mun:RequestKey>?</mun:RequestKey>
-					<mun:Buyer>
-				    </mun:Buyer>
+      					<mun:Buyer>
+      				  </mun:Buyer>
 		            <mun:CreditCardTransactionCollection>
 		            </mun:CreditCardTransactionCollection>		            
 		            <mun:BoletoTransactionCollection>
@@ -136,13 +137,15 @@ class MundiPaggClient
       xml_hash['mun:Buyer'] = CreateBuyer(request)
     end
 
-    if request.creditCardTransactionCollection.count > 0
+    if not request.creditCardTransactionCollection.nil? and request.creditCardTransactionCollection.count > 0
       #Create credit card transaction array and assing to the contract hash
       creditCardTransactionCollection = CreateCreditCardTransaction(request)
       xml_hash['mun:CreditCardTransactionCollection'] = creditCardTransactionCollection
+    else
+      xml_hash['mun:CreditCardTransactionCollection'] = nil
     end
 
-    if request.boletoTransactionCollection.count > 0
+    if request.boletoTransactionCollection.nil? == false and request.boletoTransactionCollection.count > 0
       #Create boleto transaction array and assing to the contract hash
       boletoTransactionCollection = CreateBoletoTransactionRequest(request);
       xml_hash['mun:BoletoTransactionCollection'] = boletoTransactionCollection
@@ -247,7 +250,7 @@ class MundiPaggClient
 
     creditCardRequest.creditCardTransactionCollection.each do |transaction|
 
-      transactionCollection['mun:CreditCardTransaction'] << {
+      transaction_hash = {
         'mun:AmountInCents' => transaction.amountInCents,
         'mun:CreditCardBrandEnum' => transaction.creditCardBrandEnum.to_s,
         'mun:CreditCardNumber' => transaction.creditCardNumber,
@@ -260,6 +263,19 @@ class MundiPaggClient
         'mun:SecurityCode' => transaction.securityCode,
         'mun:TransactionReference' => transaction.transactionReference
       }
+
+      if transaction.recurrency.nil? == false
+        
+        transaction_hash['mun:Recurrency'] = {
+          'mun:DateToStartBilling' => transaction.recurrency.dateToStartBilling,
+          'mun:FrequencyEnum' => transaction.recurrency.frequencyEnum,
+          'mun:Interval' => transaction.recurrency.interval,
+          'mun:OneDollarAuth' => transaction.recurrency.oneDollarAuth,
+          'mun:Recurrences' => transaction.recurrency.recurrences
+        }
+      end
+
+      transactionCollection['mun:CreditCardTransaction'] << transaction_hash
     end
 
     return transactionCollection
@@ -285,6 +301,7 @@ class MundiPaggClient
 
     client = Savon.client do
       wsdl url
+      log_level :error
       namespaces 'xmlns:mun' => 'http://schemas.datacontract.org/2004/07/MundiPagg.One.Service.DataContracts'
     end
 
