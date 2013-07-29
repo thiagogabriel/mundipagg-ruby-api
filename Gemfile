@@ -1,3 +1,5 @@
+source 'https://rubygems.org'
+
 gem 'savon', '2.3.0'
 gem 'nori', '2.3.0'
 
