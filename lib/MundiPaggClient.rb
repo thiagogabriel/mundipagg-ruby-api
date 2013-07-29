@@ -1,4 +1,4 @@
-require 'Savon'
+require 'savon'
 require_relative 'ServiceContracts/CreateOrderRequest.rb'
 require_relative 'ServiceContracts/BoletoTransaction.rb'
 require_relative 'ServiceContracts/CreditCardTransaction.rb'
