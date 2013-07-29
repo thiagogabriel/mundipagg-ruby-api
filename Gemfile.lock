@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     akami (1.2.0)
       gyoku (>= 0.4.0)
