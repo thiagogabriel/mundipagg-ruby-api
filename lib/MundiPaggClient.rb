@@ -1,10 +1,10 @@
-require 'savon'
 require_relative 'ServiceContracts/CreateOrderRequest.rb'
 require_relative 'ServiceContracts/BoletoTransaction.rb'
 require_relative 'ServiceContracts/CreditCardTransaction.rb'
 require_relative 'ServiceContracts/Buyer.rb'
 require_relative 'ServiceContracts/QueryOrderRequest.rb'
 require_relative 'ServiceContracts/ManageOrderRequest.rb'
+require 'savon'
 
 
 # Class that handles all webservice calls
@@ -305,7 +305,9 @@ class MundiPaggClient
       namespaces 'xmlns:mun' => 'http://schemas.datacontract.org/2004/07/MundiPagg.One.Service.DataContracts'
     end
 
-    response = client.call(service_method, message: hash)
+    response = client.call(service_method) do
+      message hash
+    end
 
     return response.to_hash
   end

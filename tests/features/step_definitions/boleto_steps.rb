@@ -1,3 +1,4 @@
+# encoding: UTF-8
 begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations'; end
 $:.unshift(File.dirname(__FILE__) + '/../../../lib') 
 require 'bigdecimal'
@@ -17,7 +18,7 @@ Given(/^I have purchase two products with a total cost of (\w+) (\d+)\.(\d+)$/) 
 	amount = BigDecimal.new(amount.gsub(',', '.'))
 	@order.amountInCents = (amount * 100).to_i
 	@order.amountInCentsToConsiderPaid = (amount * 100).to_i
-	@order.currencyIsoEnum = currency
+	@order.currencyIsoEnum = 'BRL'
 end
 
 Given(/^I will pay using (\w+) with (\d+) days to expire$/) do |type,daysToExpire|

@@ -18,7 +18,7 @@ Given(/^I have purchase three products with a total cost of (\w+) (\d+)$/) do |c
 	amount = BigDecimal.new(amount.gsub(',', '.'))
 	@order.amountInCents = (amount * 100).to_i
 	@order.amountInCentsToConsiderPaid = (amount * 100).to_i
-	@order.currencyIsoEnum = currency
+	@order.currencyIsoEnum = 'BRL'
 end
 
 Given(/^I will pay using a (\w+) credit card in (\d+) installments$/) do |brand,installments|
