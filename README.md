@@ -1,6 +1,9 @@
 MundiPagg Ruby API
 ====================
 
+[![Build Status](https://travis-ci.org/mundipagg/ruby-integration-api.png?branch=master)](https://travis-ci.org/mundipagg/ruby-integration-api)
+
+
 Ruby API for integration with MundiPagg payment web services.
 
 ## Dependencies 
