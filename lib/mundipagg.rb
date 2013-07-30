@@ -1,0 +1,8 @@
+require 'savon'
+require 'mundipagg/gateway'
+require 'mundipagg/CreateOrderRequest'
+require 'mundipagg/BoletoTransaction'
+require 'mundipagg/CreditCardTransaction'
+require 'mundipagg/Buyer'
+require 'mundipagg/QueryOrderRequest'
+require 'mundipagg/ManageOrderRequest'

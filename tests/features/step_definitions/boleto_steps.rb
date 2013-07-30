@@ -2,12 +2,12 @@
 begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations'; end
 $:.unshift(File.dirname(__FILE__) + '/../../../lib') 
 require 'bigdecimal'
-require 'MundiPaggClient.rb'
+require 'mundipagg'
 
 Before do 
-	@client = MundiPaggClient.new :test
-	@order = CreateOrderRequest.new
-	@boleto = BoletoTransaction.new
+	@client = Mundipagg::Gateway.new :test
+	@order = Mundipagg::CreateOrderRequest.new
+	@boleto = Mundipagg::BoletoTransaction.new
 	@response = Hash.new
 	@order.merchantKey = '73611285-C8F7-45A4-8F50-579182627242'
 end

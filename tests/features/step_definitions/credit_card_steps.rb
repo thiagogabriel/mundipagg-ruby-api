@@ -1,14 +1,14 @@
 begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations'; end
 $:.unshift(File.dirname(__FILE__) + '/../../../lib') 
 require 'bigdecimal'
-require 'MundiPaggClient.rb'
+require 'mundipagg'
 
 #Scenario 1: 
 Before do 
-	@client = MundiPaggClient.new :test
-	@order = CreateOrderRequest.new
+	@client = Mundipagg::Gateway.new :test
+	@order = Mundipagg::CreateOrderRequest.new
 	@order.merchantKey = '73611285-C8F7-45A4-8F50-579182627242'
-	@transaction = CreditCardTransaction.new
+	@transaction = Mundipagg::CreditCardTransaction.new
 	@order.creditCardTransactionCollection << @transaction
 	@response = Hash.new
 end
@@ -31,7 +31,7 @@ Given(/^I will pay using a (\w+) credit card in (\d+) installments$/) do |brand,
 	@transaction.securityCode = '123'
 	@transaction.expirationMonth = 5
 	@transaction.expirationYear = 2018
-	@transaction.creditCardOperationEnum = CreditCardTransaction.OperationEnum[:AuthAndCapture]
+	@transaction.creditCardOperationEnum = Mundipagg::CreditCardTransaction.OperationEnum[:AuthAndCapture]
 end
 
 Given(/^I will send to Mundipagg$/) do
@@ -70,7 +70,7 @@ Given(/^I will pay using a (\w+) credit card without installment$/) do |brand|
 	@transaction.securityCode = '123'
 	@transaction.expirationMonth = 5
 	@transaction.expirationYear = 2018
-	@transaction.creditCardOperationEnum = CreditCardTransaction.OperationEnum[:AuthAndCapture]
+	@transaction.creditCardOperationEnum = Mundipagg::CreditCardTransaction.OperationEnum[:AuthAndCapture]
 
 end
 
