@@ -3,6 +3,7 @@ MundiPagg Ruby Client Library
 
 [![Build Status](https://travis-ci.org/mundipagg/ruby-integration-api.png?branch=master)](https://travis-ci.org/mundipagg/ruby-integration-api)
 
+[![Gem Version](https://badge.fury.io/rb/mundipagg.png)](http://badge.fury.io/rb/mundipagg)
 
 Ruby API for integration with MundiPagg payment web services.
 
@@ -15,8 +16,13 @@ Unit tests made with [Cucumber](https://github.com/cucumber/cucumber) and [RSpec
 ## Usage
 Below a simple exemple of an order with one credit card transaction.
 
+````Ruby
+> gem install mundipagg
+````
 
 ````Ruby
+require 'mundipagg'
+
 #Create the client instance
 client = MundiPaggClient.new :test #API test environment
 
