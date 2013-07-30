@@ -24,7 +24,7 @@ Below a simple exemple of an order with one credit card transaction.
 require 'mundipagg'
 
 #Create the client instance
-client = Mundipagg::MundiPaggClient.new :test #API test environment
+client = Mundipagg::Gateway.new :test #API test environment
 
 #Create the order
 order = Mundipagg::CreateOrderRequest.new
