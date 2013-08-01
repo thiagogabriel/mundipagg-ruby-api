@@ -40,8 +40,8 @@ order.orderReference = 'Custom Order 42'
 credit = Mundipagg::CreditCardTransaction.new
 
 credit.amountInCents = 1000; # R$ 10,00
-credit.creditCardBrandEnum = CreditCardTransaction.BrandEnum[:Visa]
-credit.creditCardOperationEnum = CreditCardTransaction.OperationEnum[:AuthAndCapture]
+credit.creditCardBrandEnum = Mundipagg::CreditCardTransaction.BrandEnum[:Visa]
+credit.creditCardOperationEnum = Mundipagg::CreditCardTransaction.OperationEnum[:AuthAndCapture]
 credit.creditCardNumber = '4111111111111111'
 credit.holderName = 'Anthony Edward Stark'
 credit.installmentCount = 1
