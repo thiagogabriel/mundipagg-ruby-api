@@ -15,7 +15,7 @@ module Mundipagg
     @@WEBSERVICE_TEST_URL = 'http://simulator.mundipaggone.com/One/MundiPaggService.svc?wsdl'
 
     # @return [String] URL that points to the production WSDL 
-    @@WEBSERVICE_PRODUCTION_URL = ''
+    @@WEBSERVICE_PRODUCTION_URL = 'https://transaction.mundipaggone.com/MundiPaggService.svc?wsdl'
 
     # Initialize a class with an environment
     #
