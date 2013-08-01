@@ -13,5 +13,6 @@ Gem::Specification.new do |s|
   s.add_dependency "savon", "2.3.0"
   s.required_ruby_version = '>= 1.9.2'
   s.license = "Apache 2.0"
+  
 
 end
