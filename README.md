@@ -24,19 +24,21 @@ Below a simple exemple of an order with one credit card transaction.
 require 'mundipagg'
 
 #Create the client instance
-client = MundiPaggClient.new :test #API test environment
+client = Mundipagg::Gateway.new :test #API test environment
 
 #Create the order
-order = CreateOrderRequest.new
+order = Mundipagg::CreateOrderRequest.new
 
 #Fill order information
 order.amountInCents = 1000 # R$ 10,00
 order.amountInCentsToConsiderPaid = 1000
 order.merchantKey = '00000000-0000-0000-0000-000000000000'
 order.orderReference = 'Custom Order 42'
-credit = CreditCardTransaction.new
+
 
 #Credit card transaction information
+credit = Mundipagg::CreditCardTransaction.new
+
 credit.amountInCents = 1000; # R$ 10,00
 credit.creditCardBrandEnum = CreditCardTransaction.BrandEnum[:Visa]
 credit.creditCardOperationEnum = CreditCardTransaction.OperationEnum[:AuthAndCapture]
