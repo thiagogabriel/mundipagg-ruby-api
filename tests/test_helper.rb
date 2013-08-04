@@ -1,5 +1,5 @@
-require 'Nori'
-require 'Gyoku'
+require 'nori'
+require 'gyoku'
 require_relative '../lib/mundipagg/extensions/string_extension.rb'
 class TestHelper
 	
