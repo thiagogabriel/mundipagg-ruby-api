@@ -51,6 +51,7 @@ PLATFORMS
 
 DEPENDENCIES
   cucumber
+  gyoku
   nori
   rake
   rspec
