@@ -1,2 +1,1 @@
-[[Installing gem]]
-
+#### Getting Started
