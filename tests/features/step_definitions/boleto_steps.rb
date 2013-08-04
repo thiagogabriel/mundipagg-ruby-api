@@ -1,8 +1,4 @@
 # encoding: UTF-8
-begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations'; end
-$:.unshift(File.dirname(__FILE__) + '/../../../lib') 
-require 'bigdecimal'
-require 'mundipagg'
 
 Before do 
 	@client = Mundipagg::Gateway.new :test

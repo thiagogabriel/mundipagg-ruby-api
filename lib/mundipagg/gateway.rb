@@ -2,6 +2,13 @@ module Mundipagg
   # Class that handles all webservice calls
   class Gateway
 
+    # Sets the soap request log level.   
+    # Can be: { :debug, :info, :warn, :error }
+    # Use :debug only to inspect the Xml sent and received to the service.
+    # Default in test environment => :debug 
+    # Default in production environment => :error 
+    attr_accessor :log_level
+
     # @return [Nori] Nori class who handle the conversion of base XML to a hash collection 
     # @see https://github.com/savonrb/nori
   	attr_reader :parser
@@ -23,6 +30,14 @@ module Mundipagg
     def initialize(environment=:test)
     	@parser = Nori.new(:convert_tags_to => lambda { |tag| tag })
       @environment = environment
+            
+      if environment == :test
+        @log_level = :debug
+      else
+        @log_level = :error 
+      end
+
+
     end
 
     # This method makes requests to the webservice method ManageOrder.
@@ -291,9 +306,17 @@ module Mundipagg
         url = @@WEBSERVICE_TEST_URL
       end
 
+      savon_levels = { :debug => 0, :info => 1, :warn => 2, :error => 3 }
+
+      if not savon_levels.include? @log_level
+        @log_level = :error
+      end
+
+      level = @log_level
+
       client = Savon.client do
         wsdl url
-        log_level :error
+        log_level level
         namespaces 'xmlns:mun' => 'http://schemas.datacontract.org/2004/07/MundiPagg.One.Service.DataContracts'
       end
 
@@ -304,6 +327,6 @@ module Mundipagg
       return response.to_hash
     end
 
-    private :CreateBoletoTransactionRequest, :CreateCreditCardTransaction, :CreateBuyer, :SendToService
+    private :CreateBoletoTransactionRequest, :CreateCreditCardTransaction, :CreateBuyer, :SendToService, :parser
   end
 end
