@@ -1,4 +1,4 @@
-require 'Nori'
+require 'nori'
 
 module Mundipagg
 	# Class who handles Mundipagg post notification XML
