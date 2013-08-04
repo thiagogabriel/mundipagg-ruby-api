@@ -1,6 +1,5 @@
 require 'nori'
 require 'gyoku'
-require_relative '../lib/mundipagg/extensions/string_extension.rb'
 class TestHelper
 	
 	def self.JoinAndConvertAmountAndCents(amount, cents)
