@@ -1,9 +1,7 @@
 MundiPagg Ruby Client Library
 ====================
 
-[![Build Status](https://travis-ci.org/mundipagg/ruby-integration-api.png?branch=master)](https://travis-ci.org/mundipagg/ruby-integration-api)
-
-[![Gem Version](https://badge.fury.io/rb/mundipagg.png)](http://badge.fury.io/rb/mundipagg)
+[![Build Status](https://travis-ci.org/mundipagg/ruby-integration-api.png?branch=master)](https://travis-ci.org/mundipagg/ruby-integration-api)[![Gem Version](https://badge.fury.io/rb/mundipagg.png)](http://badge.fury.io/rb/mundipagg)
 
 Ruby API for integration with MundiPagg payment web services.
 
@@ -13,14 +11,19 @@ Ruby API for integration with MundiPagg payment web services.
 
 Unit tests made with [Cucumber](https://github.com/cucumber/cucumber) and [RSpec](https://github.com/rspec/rspec)
 
+## Documentation 
+* [Wiki](https://github.com/mundipagg/mundipagg-ruby-api/wiki)
+* [RubyDoc](http://rubydoc.info/github/mundipagg/mundipagg-ruby-api/)
+
+
 ## Usage
 Below a simple exemple of an order with one credit card transaction.
 
-````Ruby
-> gem install mundipagg
-````
+```sh
+$ gem install mundipagg
+```
 
-````Ruby
+```ruby
 require 'mundipagg'
 
 #Create the client instance
@@ -55,11 +58,11 @@ credit.expirationYear = 2020
 order.creditCardTransactionCollection << credit
 
 response = client.CreateOrder(order)
-````
+```
 
 The response variable will contain a Hash like the one below.
 
-```Ruby
+```ruby
 {:create_order_response=>
   {:create_order_result=>
     {:buyer_key=>"00000000-0000-0000-0000-000000000000",
@@ -102,9 +105,6 @@ The response variable will contain a Hash like the one below.
    :@xmlns=>"http://tempuri.org/"}}
 ```
 
-## More information
-
-[RubyDoc](http://rubydoc.info/github/mundipagg/mundipagg-ruby-api/)
 
 ## LICENSE
 See the LICENSE file.
