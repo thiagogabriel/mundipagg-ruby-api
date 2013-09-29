@@ -1,0 +1,13 @@
+require 'rubygems'
+require 'cucumber/rake/task'
+
+task :default do
+end
+
+task :gem do
+  exec('gem build mundipagg.gemspec')
+end
+
+Cucumber::Rake::Task.new(:integration) do |t|
+	t.cucumber_opts = "tests --format pretty"
+end
