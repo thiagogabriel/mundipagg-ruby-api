@@ -19,7 +19,7 @@ module Mundipagg
     attr_accessor :environment 
 
     # @return [String] URL that points to the simulator WSDL 
-    @@WEBSERVICE_TEST_URL = 'http://simulator.mundipaggone.com/One/MundiPaggService.svc?wsdl'
+    @@WEBSERVICE_TEST_URL = 'https://transaction.mundipaggone.com/MundiPaggService.svc?wsdl'
 
     # @return [String] URL that points to the production WSDL 
     @@WEBSERVICE_PRODUCTION_URL = 'https://transaction.mundipaggone.com/MundiPaggService.svc?wsdl'
@@ -257,6 +257,10 @@ module Mundipagg
 
       creditCardRequest.creditCardTransactionCollection.each do |transaction|
 
+        if environment == :test
+          transaction.paymentMethodCode = 1 # Simulator payment code
+        end
+
         transaction_hash = {
           'mun:AmountInCents' => transaction.amountInCents,
           'mun:CreditCardBrandEnum' => transaction.creditCardBrandEnum.to_s,
@@ -305,7 +309,6 @@ module Mundipagg
       else
         url = @@WEBSERVICE_TEST_URL
       end
-
       savon_levels = { :debug => 0, :info => 1, :warn => 2, :error => 3 }
 
       if not savon_levels.include? @log_level

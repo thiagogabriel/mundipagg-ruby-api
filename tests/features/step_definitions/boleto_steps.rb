@@ -5,7 +5,7 @@ Before do
 	@order = Mundipagg::CreateOrderRequest.new
 	@boleto = Mundipagg::BoletoTransaction.new
 	@response = Hash.new
-	@order.merchantKey = '73611285-C8F7-45A4-8F50-579182627242'
+	@order.merchantKey = TestConfiguration::Merchant::MerchantKey
 end
 
 

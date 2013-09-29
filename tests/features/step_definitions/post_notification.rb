@@ -7,9 +7,9 @@ Before do
 	@order = Mundipagg::CreateOrderRequest.new
 	@manage_order = Mundipagg::ManageOrderRequest.new
 
-	@manage_order.merchantKey = '73611285-C8F7-45A4-8F50-579182627242'
-	@order.merchantKey = '73611285-C8F7-45A4-8F50-579182627242'
-
+	@manage_order.merchantKey = TestConfiguration::Merchant::MerchantKey
+	@order.merchantKey =  TestConfiguration::Merchant::MerchantKey
+	
 	@transaction = Mundipagg::CreditCardTransaction.new
 	@order.creditCardTransactionCollection << @transaction
 

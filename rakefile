@@ -1,6 +1,2 @@
 require 'rubygems'
 require 'cucumber/rake/task'
-
-Cucumber::Rake::Task.new(:default) do |t|
-  t.cucumber_opts = "tests --format pretty" # Any valid command line option can go here.
-end

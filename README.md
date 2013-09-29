@@ -27,7 +27,7 @@ $ gem install mundipagg
 require 'mundipagg'
 
 #Create the client instance
-client = Mundipagg::Gateway.new :production #API test environment
+client = Mundipagg::Gateway.new :production
 
 #Create the order
 order = Mundipagg::CreateOrderRequest.new
