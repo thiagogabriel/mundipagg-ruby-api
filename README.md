@@ -1,17 +1,17 @@
 MundiPagg Ruby Client Library
 ====================
 
-[![Build Status](https://travis-ci.org/mundipagg/ruby-integration-api.png?branch=master)](https://travis-ci.org/mundipagg/ruby-integration-api)[![Gem Version](https://badge.fury.io/rb/mundipagg.png)](http://badge.fury.io/rb/mundipagg)
+[![Build Status](https://travis-ci.org/mundipagg/mundipagg-ruby-api.png?branch=master)](https://travis-ci.org/mundipagg/mundipagg-ruby-api)[![Gem Version](https://badge.fury.io/rb/mundipagg.png)](http://badge.fury.io/rb/mundipagg)
 
 Ruby API for integration with MundiPagg payment web services.
 
-## Dependencies 
+## Dependencies
 * [Savon 2.3.0](http://savonrb.com/version2/)
 	* [Nori 2.3.0](https://github.com/savonrb/nori)
 
 Unit tests made with [Cucumber](https://github.com/cucumber/cucumber) and [RSpec](https://github.com/rspec/rspec)
 
-## Documentation 
+## Documentation
 * [Wiki](https://github.com/mundipagg/mundipagg-ruby-api/wiki)
 * [RubyDoc](http://rubydoc.info/github/mundipagg/mundipagg-ruby-api/)
 
