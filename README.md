@@ -16,6 +16,14 @@ Unit tests made with [Cucumber](https://github.com/cucumber/cucumber) and [RSpec
 * [RubyDoc](http://rubydoc.info/github/mundipagg/mundipagg-ruby-api/)
 
 
+## Tests
+After get your _MerchantKey_ you can run the unit tests in our simulator environment, all you need to do is put your _MerchantKey_ in the [TestConfiguration.rb file](https://github.com/mundipagg/mundipagg-ruby-api/blob/master/tests/test_configuration.rb) and execute cucumber tests with the command below:
+
+```sh
+$ bundle exec rake integration
+```
+
+
 ## Usage
 Below a simple exemple of an order with one credit card transaction.
 
