@@ -315,7 +315,7 @@ module Mundipagg
         @log_level = :error
       end
 
-      level = @log_level
+      level = :debug
 
       client = Savon.client do
         wsdl url

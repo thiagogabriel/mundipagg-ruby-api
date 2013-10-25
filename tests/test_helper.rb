@@ -64,6 +64,6 @@ class TestHelper
 			root['OrderReference'] = create_order_result[:order_reference]
 			root['OrderStatus'] = manage_transaction_reuslt[:order_status_enum] 	
 
-			return Gyoku.xml(hash)
+			return CGI::escapeHTML(Gyoku.xml(hash))
 	end
 end

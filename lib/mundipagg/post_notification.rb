@@ -11,7 +11,7 @@ module Mundipagg
 		def self.ParseNotification(xml)
 
 			nori = Nori.new(:convert_tags_to => lambda { |tag| PostNotification.to_underscore(tag).to_sym })
-			xml_hash  = nori.parse(xml)
+			xml_hash  = nori.parse(CGI::unescapeHTML(xml))
 
 			return xml_hash
 		end

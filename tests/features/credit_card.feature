@@ -5,6 +5,7 @@ Feature: Credit Card Transaction
 		Given I have purchase three products with a total cost of BRL 250
 		And I will pay using a Visa credit card in 3 installments
 		And I will send to Mundipagg 
+		Then the order amount in cents should be 25000 
 		And the transaction status should be Captured
 
 	Scenario: Pay a order using credit card without installment
