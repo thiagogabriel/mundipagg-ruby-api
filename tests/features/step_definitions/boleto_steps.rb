@@ -6,7 +6,8 @@ Before do
 	@boleto = Mundipagg::BoletoTransaction.new
 	@response = Hash.new
 	@order.merchantKey = TestConfiguration::Merchant::MerchantKey
-
+	$world = self
+	$world.puts ENV.to_a
 end
 
 
