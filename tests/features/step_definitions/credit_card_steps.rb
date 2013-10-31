@@ -3,6 +3,7 @@
 Before do 
 
 	@client = Mundipagg::Gateway.new :test
+	@client.log_level = :none
 	@order = Mundipagg::CreateOrderRequest.new
 	@order.merchantKey = TestConfiguration::Merchant::MerchantKey
 	@transaction = Mundipagg::CreditCardTransaction.new

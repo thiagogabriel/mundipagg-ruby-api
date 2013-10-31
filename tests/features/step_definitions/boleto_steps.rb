@@ -2,12 +2,12 @@
 
 Before do 
 	@client = Mundipagg::Gateway.new :test
+	@client.log_level = :none
 	@order = Mundipagg::CreateOrderRequest.new
 	@boleto = Mundipagg::BoletoTransaction.new
 	@response = Hash.new
 	@order.merchantKey = TestConfiguration::Merchant::MerchantKey
 	$world = self
-	$world.puts ENV.to_a
 end
 
 

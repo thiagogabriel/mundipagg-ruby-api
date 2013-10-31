@@ -1,9 +1,8 @@
 # encoding: UTF-8
-
 Before do
 
 	@client = Mundipagg::Gateway.new :test
-	@client.log_level = :error
+	@client.log_level = :none
 
 	@order = Mundipagg::CreateOrderRequest.new
 	@manage_order = Mundipagg::ManageOrderRequest.new
@@ -79,6 +78,7 @@ Then(/^I will receive a POST notification telling my transaction has been (\w+)$
 	xml = TestHelper.CreateFakePostNotification(@response, @response_manage)
 
 	@notification_hash = Mundipagg::PostNotification.ParseNotification(xml)
+	pp @notification_hash, :indent => true
 
 	@notification_hash.should_not == nil
 	@notification_hash.count.should > 0
