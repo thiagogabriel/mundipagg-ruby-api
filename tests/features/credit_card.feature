@@ -14,3 +14,9 @@ Feature: Credit Card Transaction
 		And I will send to Mundipagg 
 		Then the order amount in cents should be 10029
 		And the transaction status should be Captured
+
+	Scenario: Keeping sensible information unlogged
+		Given I have purchase three products with a total cost of BRL 100,29
+		And I will pay using a Visa credit card without installment
+		And I will send to Mundipagg 
+		Then the log file doesn't contain sensible information
