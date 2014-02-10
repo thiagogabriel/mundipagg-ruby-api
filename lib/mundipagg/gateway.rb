@@ -311,17 +311,16 @@ module Mundipagg
 			end
 			savon_levels = { :none => -1, :debug => 0, :info => 1, :warn => 2, :error => 3 }
 
+			level = @log_level || :debug
+			enable_log = true
+
 			if not savon_levels.include? @log_level
 				@log_level = :none
 			end
 
-			level = :debug
-			enable_log = true 
-
-
 			if @log_level == :none
-				enable_log = false
 				level = :error
+				enable_log = false
 			end
 
 
