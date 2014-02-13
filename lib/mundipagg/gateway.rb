@@ -317,9 +317,9 @@ module Mundipagg
 
 			level = :debug
 			enable_log = true
-			filters = ['CreditCardNumber',
-			           'SecurityCode',
-			           'MerchantKey']
+			filters = [:CreditCardNumber,
+			           :SecurityCode,
+			           :MerchantKey]
 
 			if @log_level == :none
 				level = :error
