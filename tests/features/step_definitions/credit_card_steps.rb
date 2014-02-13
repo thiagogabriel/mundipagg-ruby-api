@@ -34,7 +34,15 @@ Given(/^I will pay using a (\w+) credit card in (\d+) installments$/) do |brand,
 end
 
 Given(/^I will send to Mundipagg$/) do
-	@response = @client.CreateOrder(@order)
+  old_stdout = $stdout
+  @stdout = StringIO.new
+  $stdout = @stdout
+  @client.log_level = :debug
+  begin
+    @response = @client.CreateOrder(@order)
+  ensure
+    $stdout = old_stdout
+  end
 end
 
 Then(/^the order amount in cents should be (\d+)$/) do |amountInCents|
@@ -71,4 +79,12 @@ Given(/^I will pay using a (\w+) credit card without installment$/) do |brand|
 	@transaction.expirationYear = 2018
 	@transaction.creditCardOperationEnum = Mundipagg::CreditCardTransaction.OperationEnum[:AuthAndCapture]
 
+end
+
+#Scenario 3:
+
+Then(/^the log file doesn't contain sensible information$/) do
+  @stdout.string.should_not include(@transaction.creditCardNumber)
+  @stdout.string.should_not include(@transaction.securityCode)
+  @stdout.string.should_not include(@order.merchantKey)
 end
