@@ -32,6 +32,7 @@ module Mundipagg
 
 		# Allowed recurrency frequency
 		def self.FrequencyEnum
+                  @@FREQUENCY
 		end
 	end
 end
