@@ -322,8 +322,8 @@ module Mundipagg
 			           'MerchantKey']
 
 			if @log_level == :none
-				enable_log = false
 				level = :error
+				enable_log = false
 			end
 
 
@@ -332,7 +332,6 @@ module Mundipagg
 				log enable_log
 				log_level level
 				filters filters
-
 				namespaces 'xmlns:mun' => 'http://schemas.datacontract.org/2004/07/MundiPagg.One.Service.DataContracts'
 			end
 
