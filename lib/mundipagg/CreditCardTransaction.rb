@@ -3,7 +3,10 @@ module Mundipagg
 		
 		# @return [Long] Transaction amount in cents
 		attr_accessor :amountInCents
-		
+
+                # @return [String] Instant buy key
+		attr_accessor :instantBuyKey
+          
 		# @return [String] Card brand. Use the static property <i>BrandEnum</i>.
 		# @see BrandEnum
 		attr_accessor :creditCardBrandEnum 

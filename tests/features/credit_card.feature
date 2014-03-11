@@ -20,3 +20,10 @@ Feature: Credit Card Transaction
 		And I will pay using a Visa credit card without installment
 		And I will send to Mundipagg 
 		Then the log file doesn't contain sensible information
+
+	Scenario: Pay a order using credit card using instant buy key
+		Given I have purchase three products with a total cost of BRL 100,29
+		And I will pay using a Visa credit card without installment
+		And I will send to Mundipagg 
+                When I pay another order with the instant buy key
+                Then the transaction status should be Captured

@@ -261,21 +261,33 @@ module Mundipagg
 					transaction.paymentMethodCode = 1 # Simulator payment code
 				end
 
-				transaction_hash = {
-					'mun:AmountInCents' => transaction.amountInCents,
-					'mun:CreditCardBrandEnum' => transaction.creditCardBrandEnum.to_s,
-					'mun:CreditCardNumber' => transaction.creditCardNumber,
-					'mun:CreditCardOperationEnum' => transaction.creditCardOperationEnum.to_s,
-					'mun:ExpMonth' => transaction.expirationMonth,
-					'mun:ExpYear' => transaction.expirationYear,
-					'mun:HolderName' => transaction.holderName,
-					'mun:InstallmentCount' => transaction.installmentCount,
-					'mun:PaymentMethodCode' => transaction.paymentMethodCode,
-					'mun:SecurityCode' => transaction.securityCode,
-					'mun:TransactionReference' => transaction.transactionReference
-				}
-
-				if transaction.recurrency.nil? == false
+				transaction_hash = if transaction.instantBuyKey
+                                    {
+                                      'mun:AmountInCents' => transaction.amountInCents,
+                                      'mun:CreditCardBrandEnum' => transaction.creditCardBrandEnum.to_s,
+                                      'mun:InstantBuyKey' => transaction.instantBuyKey,
+                                      'mun:CreditCardOperationEnum' => transaction.creditCardOperationEnum.to_s,
+                                      'mun:InstallmentCount' => transaction.installmentCount,
+                                      'mun:PaymentMethodCode' => transaction.paymentMethodCode,
+                                      'mun:TransactionReference' => transaction.transactionReference
+                                    }
+                                  else
+                                    {
+                                      'mun:AmountInCents' => transaction.amountInCents,
+                                      'mun:CreditCardBrandEnum' => transaction.creditCardBrandEnum.to_s,
+                                      'mun:CreditCardNumber' => transaction.creditCardNumber,
+                                      'mun:CreditCardOperationEnum' => transaction.creditCardOperationEnum.to_s,
+                                      'mun:ExpMonth' => transaction.expirationMonth,
+                                      'mun:ExpYear' => transaction.expirationYear,
+                                      'mun:HolderName' => transaction.holderName,
+                                      'mun:InstallmentCount' => transaction.installmentCount,
+                                      'mun:PaymentMethodCode' => transaction.paymentMethodCode,
+                                      'mun:SecurityCode' => transaction.securityCode,
+                                      'mun:TransactionReference' => transaction.transactionReference
+                                   }
+                                 end
+                    
+                                if transaction.recurrency.nil? == false
 					
 					transaction_hash['mun:Recurrency'] = {
 						'mun:DateToStartBilling' => transaction.recurrency.dateToStartBilling,
