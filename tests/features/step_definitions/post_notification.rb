@@ -1,7 +1,7 @@
 # encoding: UTF-8
 Before do
 
-	@client = Mundipagg::Gateway.new :test
+	@client = Mundipagg::Gateway.new :production
 	@client.log_level = :none
 
 	@order = Mundipagg::CreateOrderRequest.new
@@ -23,6 +23,7 @@ Given(/^I have pre authorized a credit card transaction of (\w+) (\d+)\.(\d+)$/)
 	@order.currencyIsoEnum = currency
 	@order.amountInCents = (amount_decimal * 100).to_i
 	@order.amountInCentsToConsiderPaid = (amount_decimal * 100).to_i
+
 
 	@transaction.amountInCents = @order.amountInCents; 
 	@transaction.creditCardBrandEnum = Mundipagg::CreditCardTransaction.BrandEnum[:Visa]

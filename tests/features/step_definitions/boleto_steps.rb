@@ -2,7 +2,7 @@
 
 Before do 
 	@client = Mundipagg::Gateway.new :test
-	@client.log_level = :none
+	@client.log_level = :debug
 	@order = Mundipagg::CreateOrderRequest.new
 	@boleto = Mundipagg::BoletoTransaction.new
 	@response = Hash.new
@@ -38,7 +38,6 @@ end
 Given(/^I send to Mundipagg$/) do
 	@response = @client.CreateOrder(@order)
 end
-
 
 Then(/^The order amount in cents should be (\d+)$/) do |amountInCents|
 	transaction = @response[:create_order_response][:create_order_result][:boleto_transaction_result_collection][:boleto_transaction_result]
