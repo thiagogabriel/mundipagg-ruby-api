@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'savon', '2.3.0'
+gem 'savon', '~> 2.3'
 gem 'nori'
 gem 'gyoku'
 
