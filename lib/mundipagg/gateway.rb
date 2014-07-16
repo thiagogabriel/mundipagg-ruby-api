@@ -134,7 +134,13 @@ module Mundipagg
 			xml_hash = hash['tns:createOrderRequest'];
 
 			xml_hash['mun:AmountInCents'] = request.amountInCents
-			xml_hash['mun:AmountInCentsToConsiderPaid'] = request.amountInCentsToConsiderPaid
+
+			if request.amountInCentsToConsiderPaid == nil
+				xml_hash['mun:AmountInCentsToConsiderPaid'] = request.amountInCents 
+			else
+				xml_hash['mun:AmountInCentsToConsiderPaid'] = request.amountInCentsToConsiderPaid 
+			end
+
 			xml_hash['mun:CurrencyIsoEnum'] = request.currencyIsoEnum
 			xml_hash['mun:MerchantKey'] = request.merchantKey
 			xml_hash['mun:OrderReference'] = request.orderReference
