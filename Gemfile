@@ -5,7 +5,7 @@ gem 'nori'
 gem 'gyoku'
 
 group :test do
-	gem 'rake'
-	gem 'cucumber'
-	gem 'rspec'
+  gem 'rake'
+  gem 'cucumber'
+  gem 'rspec'
 end
