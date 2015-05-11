@@ -22,6 +22,9 @@ module Mundipagg
     # @return [String] Custom order identification.
     attr_accessor :orderReference
 
+    # @return [Integer] The number of mundipagg automatic retries
+    attr_accessor :retries
+
     # @return [Array] Array with all credit card transactions
     attr_accessor :creditCardTransactionCollection
 
